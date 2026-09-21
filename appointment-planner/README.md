@@ -25,7 +25,7 @@ Operators can manage the application through a dedicated dashboard.
 <table>
   <tr>
     <td align="center">
-      <img src="./screenshots/login.png" alt="Login" width="400">
+      <img src="./screenshots/login.png" alt="Login" width="400" >
       <br>
       <b>Login</b>
     </td>
