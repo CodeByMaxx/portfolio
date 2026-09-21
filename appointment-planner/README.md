@@ -42,7 +42,7 @@ Operators can manage the application through a dedicated dashboard.
       <b>Dashboard</b>
     </td>
     <td align="center">
-      <img src="./screenshots/dashboard_2.png" alt="Dashboard" width="400">
+      <img src="./screenshots/dashboard_2.png" alt="Dashboard 2" width="400">
       <br>
       <b>Dashboard</b>
     </td>
