@@ -22,15 +22,21 @@ Operators can manage the application through a dedicated dashboard.
 
 ## Screenshots
 
+## Screenshots
+
 <table>
   <tr>
     <td align="center">
-      <img src="./screenshots/login.png" alt="Login" width="800" height="600">
+      <img src="./screenshots/login.png"
+           alt="Login"
+           style="width: 800px; height: 600px;">
       <br>
       <b>Login</b>
     </td>
     <td align="center">
-      <img src="./screenshots/booking.png" alt="Booking" width="800" height="600">
+      <img src="./screenshots/booking.png"
+           alt="Booking"
+           style="width: 800px; height: 600px;">
       <br>
       <b>Booking</b>
     </td>
@@ -38,17 +44,26 @@ Operators can manage the application through a dedicated dashboard.
 
   <tr>
     <td align="center">
-      <img src="./screenshots/dashboard.png" alt="Dashboard" width="800" height="600">
+      <img src="./screenshots/dashboard.png"
+           alt="Dashboard"
+           style="width: 800px; height: 600px;">
       <br>
       <b>Dashboard</b>
     </td>
     <td align="center">
-      <img src="./screenshots/dashboard_2.png" alt="Dashboard 2" width="800" height="600">
+      <img src="./screenshots/dashboard_2.png"
+           alt="Dashboard 2"
+           style="width: 800px; height: 600px;">
       <br>
       <b>Dashboard 2</b>
     </td>
+  </tr>
+
+  <tr>
     <td align="center">
-      <img src="./screenshots/appointments.png" alt="Appointments" width="800" height="600">
+      <img src="./screenshots/appointments.png"
+           alt="Appointments"
+           style="width: 800px; height: 600px;">
       <br>
       <b>Appointments</b>
     </td>
