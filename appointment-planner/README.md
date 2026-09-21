@@ -29,14 +29,14 @@ Operators can manage the application through a dedicated dashboard.
     <td align="center">
       <img src="./screenshots/login.png"
            alt="Login"
-           style="width: 600px; height: 800px;">
+           style="width: 400px; height: 600px;">
       <br>
       <b>Login</b>
     </td>
     <td align="center">
       <img src="./screenshots/booking.png"
            alt="Booking"
-           style="width: 600px; height: 800px;">
+           style="width: 400px; height: 600px;">
       <br>
       <b>Booking</b>
     </td>
@@ -46,14 +46,14 @@ Operators can manage the application through a dedicated dashboard.
     <td align="center">
       <img src="./screenshots/dashboard.png"
            alt="Dashboard"
-           style="width: 600px; height: 800px;">
+           style="width: 400px; height: 600px;">
       <br>
       <b>Dashboard</b>
     </td>
     <td align="center">
       <img src="./screenshots/dashboard_2.png"
            alt="Dashboard 2"
-           style="width: 600px; height: 800px;">
+           style="width: 400px; height: 600px;">
       <br>
       <b>Dashboard 2</b>
     </td>
@@ -63,7 +63,7 @@ Operators can manage the application through a dedicated dashboard.
     <td align="center">
       <img src="./screenshots/appointments.png"
            alt="Appointments"
-           style="width: 600px; height: 800px;">
+           style="width: 400px; height: 600px;">
       <br>
       <b>Appointments</b>
     </td>
