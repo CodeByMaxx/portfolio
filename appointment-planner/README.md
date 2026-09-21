@@ -44,7 +44,7 @@ Operators can manage the application through a dedicated dashboard.
     <td align="center">
       <img src="./screenshots/dashboard_2.png" alt="Dashboard 2" width="400">
       <br>
-      <b>Dashboard</b>
+      <b>Dashboard 2</b>
     </td>
     <td align="center">
       <img src="./screenshots/appointments.png" alt="Appointments" width="400">
