@@ -25,29 +25,33 @@ Operators can manage the application through a dedicated dashboard.
 <table>
   <tr>
     <td align="center">
-      <img src="./screenshots/login.png" alt="Login" width="400" >
+      <img src="./screenshots/login.png" alt="Login" width="800" height="600">
       <br>
       <b>Login</b>
     </td>
+
     <td align="center">
-      <img src="./screenshots/booking.png" alt="Booking" width="400">
+      <img src="./screenshots/booking.png" alt="Booking" width="800" height="600">
       <br>
       <b>Booking</b>
     </td>
   </tr>
+
   <tr>
     <td align="center">
-      <img src="./screenshots/dashboard.png" alt="Dashboard" width="400">
+      <img src="./screenshots/dashboard.png" alt="Dashboard" width="800" height="600">
       <br>
       <b>Dashboard</b>
     </td>
+
     <td align="center">
-      <img src="./screenshots/dashboard_2.png" alt="Dashboard 2" width="400">
+      <img src="./screenshots/dashboard_2.png" alt="Dashboard 2" width="800" height="600">
       <br>
       <b>Dashboard 2</b>
     </td>
+
     <td align="center">
-      <img src="./screenshots/appointments.png" alt="Appointments" width="400">
+      <img src="./screenshots/appointments.png" alt="Appointments" width="800" height="600">
       <br>
       <b>Appointments</b>
     </td>
