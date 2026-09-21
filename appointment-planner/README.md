@@ -29,7 +29,6 @@ Operators can manage the application through a dedicated dashboard.
       <br>
       <b>Login</b>
     </td>
-
     <td align="center">
       <img src="./screenshots/booking.png" alt="Booking" width="800" height="600">
       <br>
@@ -43,13 +42,11 @@ Operators can manage the application through a dedicated dashboard.
       <br>
       <b>Dashboard</b>
     </td>
-
     <td align="center">
       <img src="./screenshots/dashboard_2.png" alt="Dashboard 2" width="800" height="600">
       <br>
       <b>Dashboard 2</b>
     </td>
-
     <td align="center">
       <img src="./screenshots/appointments.png" alt="Appointments" width="800" height="600">
       <br>
