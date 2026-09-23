@@ -1,10 +1,10 @@
 # Cloud & Software Portfolio
 
-A collection of software projects focused on software development, cloud infrastructure, automation and modern application architecture.
+A collection of software projects focused on **software development, cloud infrastructure, automation and modern application architecture**.
 
 This repository contains publicly shareable project documentation, screenshots, architecture information and technical resources.
 
-Source code for the projects is maintained separately.
+Source code for the projects may be maintained separately when projects contain protected or private components.
 
 ## Projects
 
@@ -14,11 +14,30 @@ A containerized appointment booking application for small businesses and service
 
 Customers can book available appointments, while operators can manage services, availability and appointments through a web dashboard.
 
-**Stack:** React · TypeScript · Vite · Fastify · Prisma · PostgreSQL · Docker · AWS
+**Stack**
 
-**AWS:** EC2 · IAM · SES
+* React
+* TypeScript
+* Vite
+* Fastify
+* Prisma
+* PostgreSQL
+* Docker
+* AWS
 
-**Topics:** REST API · Appointment Scheduling · Timezone Handling · Email Notifications · Docker Deployment
+**AWS**
+
+* EC2
+* IAM
+* SES
+
+**Topics**
+
+* REST API
+* Appointment scheduling
+* Timezone handling
+* Email notifications
+* Docker deployment
 
 **Status:** Working MVP deployed on AWS
 
@@ -26,7 +45,7 @@ Customers can book available appointments, while operators can manage services, 
 
 ---
 
-### More Projects
+## More Projects
 
 Additional software and cloud projects will be documented here over time.
 
@@ -45,7 +64,7 @@ Additional software and cloud projects will be documented here over time.
 
 ## Documentation
 
-Each project contains its own public documentation, screenshots and technical information.
+Each project can contain its own public documentation, screenshots and technical information.
 
 The portfolio is structured so that project documentation can be shared without exposing protected application source code or sensitive infrastructure information.
 
@@ -61,3 +80,19 @@ The public portfolio does not contain:
 * Real customer data
 * Database dumps
 * Other confidential information
+
+## Repository Structure
+
+```text
+portfolio/
+├── appointment-planner/
+│   └── ...
+└── README.md
+```
+
+Additional projects can be added as separate directories as their public documentation becomes available.
+
+## About
+
+This repository serves as a public overview of my software development and cloud projects, including projects with public documentation and projects where the implementation itself is kept private.
+
