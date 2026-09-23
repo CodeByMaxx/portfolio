@@ -131,6 +131,126 @@ The application follows a containerized architecture with separate frontend, bac
                              ▼
                     ┌──────────────────┐
                     │     Frontend     │
-                    │ React
+                    │ React / Vite     │
+                    └────────┬─────────┘
+                             │
+                             ▼
+                    ┌──────────────────┐
+                    │       API        │
+                    │ Fastify / Node   │
+                    └───────┬───┬──────┘
+                            │   │
+                    ┌───────┘   └──────────────┐
+                    ▼                          ▼
+             ┌──────────────┐           ┌──────────────┐
+             │ PostgreSQL   │           │   AWS SES    │
+             │   Database   │           │    Email     │
+             └──────────────┘           └──────────────┘
 ```
+
+### Application Flow
+
+```text
+Customer
+   │
+   ▼
+Frontend
+   │
+   ▼
+Fastify API
+   │
+   ├──────────────► PostgreSQL
+   │
+   └──────────────► AWS SES
+                         │
+                         ▼
+                  Email Confirmation
+```
+
+---
+
+## AWS Deployment
+
+The current MVP is deployed to AWS using a containerized EC2 environment.
+
+The deployment uses:
+
+* Amazon EC2
+* Docker
+* Docker Compose
+* IAM
+* Amazon SES
+* PostgreSQL
+* AWS regional deployment
+
+The current architecture is intentionally kept simple for the MVP.
+
+Future iterations can move individual components toward managed AWS services such as **Amazon ECS/Fargate** and **Amazon RDS**.
+
+---
+
+## Project Goals
+
+The project was built to explore and demonstrate practical experience with:
+
+* Full-stack application development
+* REST API design
+* Relational database design
+* Containerization
+* AWS infrastructure
+* Cloud deployment
+* IAM permissions
+* Transactional email
+* Timezone-aware business logic
+* Service-oriented architecture
+
+---
+
+## Future Improvements
+
+Planned improvements include:
+
+* [ ] HTTPS and custom domain
+* [ ] Server-side authentication and authorization
+* [ ] Improved security hardening
+* [ ] Managed PostgreSQL using Amazon RDS
+* [ ] Container deployment using ECS/Fargate
+* [ ] CI/CD automation
+* [ ] Improved monitoring and logging
+* [ ] Improved appointment conflict handling
+* [ ] Production-ready service architecture
+
+---
+
+## Portfolio Context
+
+Appointment Planner is part of a broader portfolio of cloud-based software projects.
+
+The long-term architecture is designed around independently deployable business services such as:
+
+* Appointment
+* Notification
+* Billing
+* Invoice
+* Accounting
+* CRM
+* Reporting
+* AI-assisted services
+
+The projects are intended to demonstrate practical software engineering and cloud architecture concepts rather than a single monolithic application.
+
+---
+
+## Source Code & Security
+
+The application source code is maintained separately from this public portfolio repository.
+
+This directory contains only publicly shareable:
+
+* Documentation
+* Screenshots
+* Architecture information
+* Project material
+
+No credentials, secrets, private keys, customer data, or other confidential information are included.
 
