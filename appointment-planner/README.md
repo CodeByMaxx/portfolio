@@ -1,10 +1,10 @@
 # Appointment Planner
 
-A containerized web application for **appointment scheduling and availability management**, designed for small businesses and service providers.
+A containerized appointment booking platform for businesses and their customers.
 
-The application allows customers to view available appointment slots and book appointments online. Business operators can manage services, availability and appointments through a dedicated web interface.
+The application provides a complete appointment workflow: customers can select a service, choose an available date and time, and submit a booking. Businesses can manage their appointments through a dedicated administration interface.
 
-The project demonstrates a complete application workflow from frontend and backend development through database persistence, containerization, cloud infrastructure and automated deployment.
+The project is currently deployed on **AWS EC2** using **Docker Compose**.
 
 ---
 
@@ -12,145 +12,121 @@ The project demonstrates a complete application workflow from frontend and backe
 
 ### Customer Booking
 
-The customer-facing interface provides a simple booking workflow for selecting a service, date and available appointment time.
-
 ![Customer Booking](./screenshots/customer-booking.png)
 
-### Business Management
+Customers can select a service, choose a date and available time slot, and submit an appointment.
 
-The business interface provides tools for managing services, availability and appointments.
+### Business Dashboard
 
 ![Business Dashboard](./screenshots/business-dashboard.png)
 
-### Appointment Management
+Businesses can access their administration interface to manage appointments and company-related information.
 
-Booked appointments can be reviewed and managed through the business interface.
+### Appointment Management
 
 ![Appointment Management](./screenshots/appointment-management.png)
 
----
-
-# Features
-
-## Customer Booking
-
-* View available services
-* Select an appointment date
-* View available time slots
-* Book an appointment online
-* Receive email notifications
-
-Only currently available appointment slots are presented for selection. The backend also validates appointment availability to prevent overlapping bookings.
-
-## Business Management
-
-* Manage services
-* Configure business availability
-* View appointments
-* Manage scheduled appointments
-* Customer-specific configuration
-
-## Scheduling
-
-The scheduling system takes several factors into account:
-
-* Service duration
-* Business opening hours
-* Existing appointments
-* Appointment overlaps
-* Business timezone
-* Day-of-week availability
-
-Date and time calculations are handled with timezone awareness to ensure that appointment times remain consistent between the application, server and customer.
+Appointments can be viewed and managed through the business interface.
 
 ---
 
-# Architecture
+## Architecture
 
-The application uses a **containerized service architecture** deployed on an AWS EC2 instance.
+The current production deployment consists of **one AWS EC2 instance running three separate Docker containers**.
 
 ![Application Architecture](./screenshots/architecture.png)
 
-```text
-                         Internet
-                            │
-              ┌─────────────┴─────────────┐
-              │                           │
-        Customer Interface         Business Interface
-             Port 80                    Port 8080
-              │                           │
-              └─────────────┬─────────────┘
-                            │
-                         REST API
-                        Port 3001
-                            │
-                 ┌──────────┴──────────┐
-                 │                     │
-            PostgreSQL              AWS SES
-```
-
-The current production deployment consists of **three Docker containers running on one EC2 instance**:
+### Current architecture
 
 ```text
-AWS EC2
-│
-└── Docker Compose
-    │
-    ├── Frontend Container
-    │      └── React / Vite / Nginx
-    │
-    ├── API Container
-    │      └── Node.js / Fastify / Prisma
-    │
-    └── PostgreSQL Container
-           └── Application Database
+                         INTERNET
+                            │
+                ┌───────────┴───────────┐
+                │                       │
+            Customer              Business / Admin
+                │                       │
+                └───────────┬───────────┘
+                            │
+                            ▼
+                  ┌─────────────────────┐
+                  │    AWS EC2 Instance  │
+                  │                     │
+                  │  Docker Compose     │
+                  │                     │
+                  │ ┌─────────────────┐ │
+                  │ │ Frontend        │ │
+                  │ │ React / Vite    │ │
+                  │ │ Nginx           │ │
+                  │ │ Port 80 / 8080  │ │
+                  │ └────────┬────────┘ │
+                  │          │          │
+                  │          ▼          │
+                  │ ┌─────────────────┐ │
+                  │ │ API             │ │
+                  │ │ Node.js         │ │
+                  │ │ TypeScript      │ │
+                  │ │ Fastify         │ │
+                  │ │ Prisma          │ │
+                  │ │ Port 3001       │ │
+                  │ └────────┬────────┘ │
+                  │          │          │
+                  │          ▼          │
+                  │ ┌─────────────────┐ │
+                  │ │ PostgreSQL      │ │
+                  │ │ Port 5432       │ │
+                  │ └─────────────────┘ │
+                  └─────────────────────┘
+                            │
+                            ▼
+                       AWS SES
+                    E-mail delivery
 ```
 
-AWS SES is used as an external cloud service by the API container and is not part of the Docker stack.
+The three application components are separated into individual containers:
+
+* **Frontend container** — React, Vite and Nginx
+* **API container** — Node.js, TypeScript, Fastify and Prisma
+* **Database container** — PostgreSQL
+
+AWS SES is used as an external AWS service for sending e-mails.
+
+This separation keeps the individual components independent while keeping the current deployment simple and cost-efficient.
 
 ---
 
-# Components
+## Features
 
-## Frontend
+### Customer
 
-React-based web application providing:
-
-* Customer booking
 * Service selection
-* Appointment slot selection
-* Business management
+* Date selection
+* Available time slots
+* Appointment booking
+* Booking confirmation
+* E-mail notification
 
-The frontend is built using Vite and served through Nginx inside the frontend container.
+### Business
 
-## Backend
-
-Fastify-based REST API responsible for:
-
+* Administration interface
+* Appointment overview
 * Appointment management
-* Availability calculation
+* Company-specific configuration
 * Service management
-* Validation
-* Database access
-* Email integration
+* Availability management
 
-## PostgreSQL
+### Backend
 
-PostgreSQL provides persistent storage for:
-
-* Companies
-* Services
-* Availability schedules
-* Appointments
-* Customer information
-
-## AWS SES
-
-Amazon SES is used by the backend for transactional email delivery.
+* REST API
+* Company-specific data
+* Service management
+* Availability calculation
+* Appointment validation
+* Database persistence
+* E-mail delivery via AWS SES
 
 ---
 
-# Technology Stack
+## Technology Stack
 
 ### Frontend
 
@@ -162,158 +138,151 @@ Amazon SES is used by the backend for transactional email delivery.
 ### Backend
 
 * Node.js
-* Fastify
 * TypeScript
+* Fastify
 * Prisma
 
 ### Database
 
-* PostgreSQL
+* PostgreSQL 16
 
 ### Infrastructure
 
 * Docker
 * Docker Compose
-* Linux
 * AWS EC2
-* AWS IAM
 * AWS SES
 
 ---
 
-# AWS Deployment
+## Docker Architecture
 
-The application is currently deployed to an **AWS EC2 instance using Docker Compose**.
+Each major application component runs in its own Docker container.
+
+```text
+Docker Compose
+│
+├── Frontend Container
+│   └── React / Vite / Nginx
+│
+├── API Container
+│   └── Node.js / Fastify / Prisma
+│
+└── PostgreSQL Container
+    └── PostgreSQL 16
+```
+
+The containers communicate through the Docker Compose network.
+
+The current production deployment runs all three containers on the same EC2 instance.
+
+---
+
+## AWS Deployment
+
+The application is deployed to AWS using an EC2 instance.
 
 ![AWS Deployment](./screenshots/aws-deployment.png)
 
-The deployment intentionally uses a simple infrastructure setup suitable for the current MVP while keeping the individual application components separated into independent containers.
+Current deployment:
 
 ```text
-                         AWS Cloud
-                            │
-                         EC2 Instance
-                            │
-                      Docker Compose
-                            │
-             ┌──────────────┼──────────────┐
-             │              │              │
-             ▼              ▼              ▼
-         Frontend         Backend      PostgreSQL
-         Container        Container      Container
-             │              │
-             │              └──────────────► AWS SES
-             │
-        Port 80 / 8080
-                            │
-                        Port 3001
+AWS
+│
+└── EC2 Instance
+    │
+    └── Docker Compose
+        │
+        ├── Frontend
+        ├── API
+        └── PostgreSQL
 ```
 
-The current architecture keeps infrastructure requirements relatively small while providing clear separation between the presentation layer, API and database.
+### Public endpoints
+
+| Component      | Port | Purpose                 |
+| -------------- | ---: | ----------------------- |
+| Frontend       |   80 | Customer booking        |
+| Admin Frontend | 8080 | Business administration |
+| API            | 3001 | REST API                |
+| PostgreSQL     | 5432 | Internal database       |
+
+PostgreSQL is not exposed publicly.
 
 ---
 
-# Scalability
+## Deployment Automation
 
-The current deployment runs all three containers on a **single EC2 instance**.
-
-Scalability is therefore not implemented as horizontal scaling yet. However, the separation of the application into independent containers provides a foundation for future infrastructure changes.
-
-For example, as demand increases, the architecture could evolve toward:
+The project includes a deployment script for customer-specific deployments.
 
 ```text
-                         Load Balancer
-                              │
-                 ┌────────────┴────────────┐
-                 │                         │
-             API Instance              API Instance
-                 │                         │
-                 └────────────┬────────────┘
-                              │
-                         PostgreSQL
-                              │
-                         AWS Services
+deploy/
+├── deploy.sh
+└── customers/
+    └── kunde-a.txt
 ```
 
-Potential future infrastructure improvements include:
+A customer configuration contains the required company-specific settings.
 
-* AWS Application Load Balancer
-* Multiple API containers
-* Auto Scaling
-* Amazon ECS / Fargate
-* Amazon RDS for PostgreSQL
-* CloudWatch monitoring
-* Centralized logging
-* HTTPS/TLS termination
+The deployment script:
 
-The important architectural principle is that the application is **not dependent on a single monolithic process**. Frontend, API and database are already separated at container level, making future migration to managed cloud infrastructure possible without fundamentally changing the application structure.
+1. Reads the customer configuration
+2. Validates the required values
+3. Builds the application
+4. Transfers the project to EC2
+5. Creates the customer-specific `.env`
+6. Starts the Docker containers
+7. Verifies the deployment
+
+Example:
+
+```bash
+DEPLOY_CONFIRM=yes ./deploy/deploy.sh deploy/customers/kunde-a.txt
+```
+
+A dry-run is available without modifying the deployment:
+
+```bash
+./deploy/deploy.sh deploy/customers/kunde-a.txt
+```
+
+Local `.env` files are intentionally excluded from the deployment process.
 
 ---
 
-# Containerization
+## Availability Logic
 
-The application runs as a Docker Compose stack:
+Available appointment slots are calculated dynamically by the backend.
+
+The API considers:
+
+* Company timezone
+* Weekday availability
+* Service duration
+* Existing appointments
+* Appointment status
+
+A time slot is considered unavailable when it overlaps an existing appointment.
+
+The backend uses overlap detection similar to:
 
 ```text
-appointment-planner
-├── frontend
-├── api
-└── postgres
+slotStart < appointmentEnd
+AND
+slotEnd > appointmentStart
 ```
 
-Each service runs in its own Docker container.
+This prevents already booked periods from being offered as available booking slots.
 
-This provides:
-
-* Service isolation
-* Reproducible deployments
-* Consistent runtime environments
-* Simplified local development
-* Easy service management
-* Clear separation of application responsibilities
-
-The same containerized architecture is used during development and deployment.
+The frontend additionally filters the returned slots and only displays slots marked as available.
 
 ---
 
-# Deployment Automation
+## REST API
 
-Deployment is handled through a dedicated deployment workflow.
+The backend provides REST endpoints for the booking workflow.
 
-```text
-Customer Configuration
-          │
-          ▼
-    Deployment Script
-          │
-          ├── Validate configuration
-          ├── Configure EC2
-          ├── Transfer application
-          ├── Generate environment configuration
-          ├── Build Docker images
-          └── Start Docker Compose
-                    │
-                    ▼
-              Running Application
-```
-
-Customer-specific configuration is kept separate from the application source.
-
-This allows the same application to be deployed for different businesses with different:
-
-* Company identities
-* Timezones
-* Email configuration
-* Database configuration
-* Application settings
-
-The deployment process therefore provides a foundation for a **multi-customer deployment model** while keeping customer-specific configuration outside the public repository.
-
----
-
-# API
-
-The backend exposes a REST API for the main application functions.
+Examples include:
 
 ```text
 GET  /services
@@ -322,171 +291,227 @@ GET  /appointments
 POST /appointments
 ```
 
-The `/slots` endpoint calculates available appointment slots based on configured availability and existing appointments.
-
-Example:
+Example slot request:
 
 ```text
-GET /slots?companyId=...&serviceId=...&date=...
+GET /slots?companyId=<company-id>&serviceId=<service-id>&date=<date>
 ```
 
-The API returns only slots that can currently be booked.
+The API is responsible for validating requests and interacting with PostgreSQL.
 
 ---
 
-# Availability Logic
+## Database
 
-Appointment availability is calculated dynamically.
+The application uses PostgreSQL together with Prisma.
+
+Prisma provides the database access layer between the Node.js backend and PostgreSQL.
+
+The database stores information such as:
+
+* Companies
+* Services
+* Availability periods
+* Appointments
+
+The database runs independently inside its own Docker container.
+
+---
+
+## E-Mail Delivery
+
+Appointment-related e-mails are sent through **AWS SES**.
 
 ```text
-Business availability
-        │
-        ▼
-Service duration
-        │
-        ▼
-Generate possible slots
-        │
-        ▼
-Check existing appointments
-        │
-        ▼
-Detect overlapping appointments
-        │
-        ▼
-Remove unavailable slots
-        │
-        ▼
-Available appointment slots
+Customer
+   │
+   ▼
+Frontend
+   │
+   ▼
+API
+   │
+   ▼
+AWS SES
+   │
+   ▼
+E-mail recipient
 ```
 
-Existing appointments are checked against the requested time range.
+The backend uses the AWS SDK and the AWS credential provider chain.
 
-This prevents already-booked periods from being offered to customers.
-
-The backend also validates the requested appointment when a booking is submitted, rather than relying solely on frontend validation.
+No AWS credentials are stored directly in the application source code.
 
 ---
 
-# Database
+## Multi-Company Architecture
 
-PostgreSQL is used as the primary persistent data store.
+The application is designed around company-specific data.
 
-The core data model contains entities for:
+Each deployment can provide its own:
+
+* Company ID
+* Company name
+* Company e-mail
+* Timezone
+* Services
+* Availability
+* Appointments
+* Administration credentials
+
+This allows the same application codebase to be deployed for different businesses with customer-specific configuration.
+
+---
+
+## Scalability
+
+The current deployment is intentionally simple:
 
 ```text
-Company
-   │
-   ├── Services
-   │
-   ├── Availability
-   │
-   └── Appointments
-            │
-            └── Customer information
+1 × EC2
+│
+├── Frontend Container
+├── API Container
+└── PostgreSQL Container
 ```
 
-Prisma provides the database access layer and type-safe interaction with PostgreSQL.
+The application is **not currently running as a horizontally scaled infrastructure**.
+
+However, the separation of frontend, API and database components provides a foundation for future infrastructure scaling.
+
+A potential future architecture could include:
+
+```text
+                 Load Balancer
+                      │
+          ┌───────────┴───────────┐
+          │                       │
+       API #1                   API #2
+          │                       │
+          └───────────┬───────────┘
+                      │
+                  PostgreSQL
+```
+
+Depending on future requirements, components could later be moved to services such as:
+
+* AWS Application Load Balancer
+* Multiple EC2 instances
+* Auto Scaling
+* ECS / Fargate
+* Amazon RDS
+* CloudWatch
+
+These are future scaling options, not part of the current production deployment.
 
 ---
 
-# AWS Services
+## Security & Privacy
 
-The current deployment uses:
+Security considerations include:
 
-### Amazon EC2
+* Customer-specific configuration
+* Environment variables for sensitive configuration
+* `.env` excluded from deployment synchronization
+* Restricted database exposure
+* AWS IAM-based access to AWS services
+* SES sender verification
+* Separate application containers
+* Server-side validation of appointments
 
-Hosts the Docker Compose application stack.
-
-### AWS IAM
-
-Provides controlled authentication and authorization for AWS services.
-
-### Amazon SES
-
-Provides transactional email delivery for appointment notifications.
-
-AWS services are integrated at application level without coupling the complete application architecture to a single AWS-specific runtime.
+Further hardening planned for future production environments includes HTTPS, stronger authentication and additional network restrictions.
 
 ---
 
-# Security & Privacy
+## Project Structure
 
-This public project documentation intentionally excludes sensitive production information.
-
-The public repository does not contain:
-
-* AWS credentials
-* Passwords
-* API keys
-* Private keys
-* Production environment files
-* Database dumps
-* Real customer data
-* Production secrets
-
-Customer-specific configuration is kept outside the public repository.
-
-AWS credentials are provided to the application through the AWS credential provider chain rather than being embedded in application source code.
+```text
+appointment-planner/
+│
+├── backend/
+│   ├── src/
+│   │   ├── routes/
+│   │   └── lib/
+│   ├── prisma/
+│   └── Dockerfile
+│
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   └── lib/
+│   ├── Dockerfile
+│   └── vite.config.ts
+│
+├── deploy/
+│   ├── deploy.sh
+│   └── customers/
+│
+├── docker-compose.yml
+├── .env
+└── README.md
+```
 
 ---
 
-# Project Status
+## Project Status
 
-**Status: Working MVP deployed on AWS**
+The application currently provides a working end-to-end appointment booking workflow.
 
-The current implementation provides:
+Implemented:
 
-* Customer appointment booking
-* Business management
-* Dynamic availability calculation
-* Timezone-aware scheduling
-* Appointment overlap detection
+* Customer booking interface
+* Business administration interface
+* Service management
+* Availability management
+* Dynamic slot calculation
+* Appointment creation
 * PostgreSQL persistence
-* Docker-based deployment
-* AWS infrastructure
-* Transactional email notifications
+* E-mail delivery through AWS SES
+* Docker containerization
+* AWS EC2 deployment
 * Customer-specific deployment configuration
+* Automated deployment script
 
 ---
 
-# Future Development
+## Future Development
 
 Potential future improvements include:
 
+* HTTPS / TLS
+* More advanced authentication
 * Outlook / Microsoft 365 calendar integration
-* Calendar synchronization through ICS/HTTP feeds
-* HTTPS with automated certificate management
-* AWS Application Load Balancer
-* Amazon RDS
+* Calendar feeds using ICS
+* Direct Microsoft Graph integration
+* Automated backups
+* Monitoring and logging
+* AWS RDS
 * Horizontal API scaling
+* Load balancing
 * Auto Scaling
-* Centralized monitoring and logging
-* CI/CD pipeline
-* Improved authentication and authorization
-* Multi-tenant infrastructure
-* Infrastructure as Code
-
-These improvements would allow the current MVP to evolve from a **single-EC2 Docker Compose deployment toward a more scalable cloud architecture** as business and traffic requirements grow.
 
 ---
 
-# What This Project Demonstrates
+## What This Project Demonstrates
 
-This project combines several areas of practical software engineering and cloud infrastructure:
+This project demonstrates practical experience with:
 
 * Full-stack web development
+* React and TypeScript
+* Node.js backend development
 * REST API design
-* Database modeling
-* Appointment scheduling logic
-* Timezone-aware application design
-* Docker & containerization
-* Linux server administration
-* AWS infrastructure
-* IAM and cloud service integration
-* Transactional email
+* Fastify
+* Prisma
+* PostgreSQL
+* Docker and Docker Compose
+* AWS EC2
+* AWS SES
+* Environment-based configuration
+* Customer-specific deployments
 * Deployment automation
-* Customer-specific configuration
-* Scalable application architecture
-* Security-conscious handling of production credentials
+* Availability and appointment logic
+* Designing an application with future scalability in mind
+
+The current architecture deliberately balances **simplicity, maintainability and deployment cost**, while keeping the individual application components separated for future expansion.
 
