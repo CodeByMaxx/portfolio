@@ -16,6 +16,10 @@ The project is currently deployed on **AWS EC2** using **Docker Compose**.
 
 Customers can select a service, choose a date and available time slot, and submit an appointment.
 
+![Cancel Booking](./screenshots/cancel-booking.png)
+
+Customers can cancel a booking via email adress and a unique number.
+
 ### Business Dashboard
 
 ![Business Dashboard](./screenshots/business-dashboard.png)
@@ -24,7 +28,9 @@ Businesses can access their administration interface to manage appointments and 
 
 ### Appointment Management
 
-![Appointment Management](./screenshots/appointment-management.png)
+![Appointment Management](./screenshots/appointment-management_1.png)
+
+![Appointment Management](./screenshots/appointment-management_2.png)
 
 Appointments can be viewed and managed through the business interface.
 
